@@ -1,0 +1,812 @@
+# MASTER PROMPT — CALLBRIDGE AI COMPLETE UPGRADE
+
+## 1. PROJECT OBJECTIVE
+
+You are a senior full-stack engineer, AI voice-agent architect, UI/UX designer, and backend integration specialist.
+
+Upgrade my existing CallBridge AI application using the imported GitHub repository:
+
+https://github.com/22a91a61f1/callbridge-ai
+
+This is an existing application with a working voice-agent foundation. Do not discard the existing project or unnecessarily rebuild working features.
+
+First inspect the complete repository, including:
+- Frontend components and routing
+- Existing voice-agent implementation
+- Audio recording and playback
+- Gemini API integration
+- Existing backend and API routes
+- Voice provider integrations
+- Environment variables and configuration
+- Existing campaign, survey, and event functionality
+- Dependencies and application startup process
+
+Reuse working code wherever possible. Implement missing functionality, fix broken flows, and extend the existing architecture.
+
+Do not stop after analyzing the code or producing a plan. Implement the actual changes, run available checks, fix errors, and provide a working application preview.
+
+Do not ask me to manually edit source code in VS Code. Make changes directly within the imported Google AI Studio project.
+
+## 2. MAIN DASHBOARD — FOUR INDEPENDENT MODULES
+
+When a user opens CallBridge AI, display four separate event cards.
+
+1. Public Survey
+2. Political Campaign
+3. Marriage Event
+4. Custom Event
+
+Each card must have its own independent workflow, configuration, contacts, campaign history, and analytics.
+
+Important:
+- Selecting one event must not automatically open another event.
+- Data belonging to one event must never appear in another event.
+- Each event must have its own saved configuration.
+- Users must be able to return to the dashboard and open any event independently.
+- Do not require users to configure all four events.
+- Reuse the same voice profile across events when the user explicitly selects an existing saved profile.
+- Never force users to record their voice again if a usable saved voice profile already exists.
+- Provide a separate configuration and campaign status for each event.
+
+Design a premium SaaS dashboard with clean navigation, cards, status indicators, responsive layouts, and clear action buttons.
+
+## 3. LANGUAGE REQUIREMENTS
+
+The entire application interface must be in English.
+
+This includes:
+- Dashboard
+- Navigation
+- Buttons
+- Forms
+- Settings
+- Contact management
+- Tables
+- Analytics
+- Error messages
+- Campaign configuration
+
+Only the actual spoken conversation, generated scripts, spoken questions, voice-agent responses, and corresponding conversation transcript should use the selected conversation language.
+
+Supported languages:
+- Telugu
+- Hindi
+- English
+
+Use a language selector with stable language codes: `te`, `hi`, and `en`.
+
+The selected language must be respected throughout the complete voice conversation.
+
+When Telugu is selected:
+- Spoken Telugu must be natural Telugu.
+- Display the spoken Telugu transcript in Telugu script.
+- Do not translate the conversation into English automatically.
+- Do not generate Telugu questions using Romanized Telugu.
+- Do not allow the agent to start in English and switch to Telugu later.
+
+Apply equivalent language consistency to Hindi and English.
+
+Keep the UI English even when Telugu is selected.
+
+## 4. SHARED VOICE RECORDING AND VOICE PROFILE SYSTEM
+
+Create a reusable voice-recording module shared by all four event types.
+
+### Recording requirements
+
+Allow the user to record a voice sample for 30–60 seconds.
+
+Include:
+- Start Recording
+- Recording timer
+- Stop Recording
+- Play Recording
+- Pause Playback
+- Re-record
+- Use This Recording
+- Create Voice Profile
+- Recording status
+- Playback controls
+- Clear validation and error messages
+
+Use the browser microphone APIs with appropriate microphone permission handling.
+
+Do not create an empty audio file or a fabricated recording when microphone access fails.
+
+Validate the actual audio duration and ensure the recording contains usable audio before submitting it to a provider.
+
+### Confirmation workflow
+
+The workflow must be:
+
+1. User starts recording.
+2. User records their voice for 30–60 seconds.
+3. User stops recording.
+4. User plays back the recorded audio.
+5. User listens to the complete sample.
+6. If dissatisfied, user clicks Re-record.
+7. If satisfied, user clicks Use This Recording.
+8. User clicks Create Voice Profile.
+9. Backend submits the audio to the configured voice provider.
+10. Display the actual success or failure result.
+
+Do not create a cloned voice before the user explicitly confirms the recording.
+
+### Voice ownership and permissions
+
+Only permit the authenticated account owner to create or use a voice profile associated with their own voice, or a voice profile for which appropriate authorization has been verified.
+
+Do not create an unrestricted feature for cloning arbitrary people's voices.
+
+Do not offer voices belonging to other users as selectable presets.
+
+Do not display unrelated voices, other people's recordings, or a gallery of third-party voice identities.
+
+### Saved voice profiles
+
+Create a reusable Voice Profiles section.
+
+Each saved profile should include:
+- Profile ID
+- Profile name
+- Provider
+- Provider voice ID
+- Creation timestamp
+- Verification or authorization status
+- Processing status
+- Available language capabilities
+- Last successful test status
+
+Allow the user to select an existing saved profile when creating another event.
+
+For example, if a user creates a voice profile in Public Survey, the same profile may be selected for Marriage Event or Political Campaign without recording again.
+
+The profile must be reused only when the provider supports it and the profile is authorized for that use.
+
+Do not confuse a local audio file with a successfully created provider voice profile.
+
+If the provider does not support voice cloning on the configured subscription, display the actual provider error and explain what is required. Never simulate successful cloning.
+
+## 5. PUBLIC SURVEY MODULE
+
+Build a complete Public Survey workflow.
+
+### Step 1: Survey configuration
+
+Include:
+- Survey name
+- Survey description
+- Survey language
+- Survey introduction
+- Survey questions
+- Optional question descriptions
+- Dynamic follow-up settings
+- Selected voice profile
+- Contact list
+- Test conversation
+
+Allow users to add, edit, delete, and reorder questions.
+
+Support Telugu, Hindi, and English.
+
+### Step 2: Question handling
+
+The voice agent must ask the configured survey questions in order.
+
+It must listen to the respondent's answer and generate relevant follow-up questions when necessary.
+
+Example:
+
+Question: "మీ ప్రాంతంలో రోజూ తాగునీరు వస్తుందా?"
+
+Respondent: "లేదు, రెండు రోజులకు ఒకసారి వస్తుంది."
+
+Agent: Ask a relevant follow-up about water availability, timing, or the respondent's experience.
+
+Follow-up generation must:
+- Use the selected language.
+- Remain relevant to the current survey.
+- Avoid repeatedly asking the same question.
+- Respect configured question limits.
+- Avoid inventing facts.
+- Avoid collecting unnecessary sensitive personal information.
+- Save the respondent's answers against the correct question.
+
+Use Gemini for question generation and interpretation where appropriate, but preserve the existing voice provider integration.
+
+### Step 3: Conversation
+
+The voice agent must:
+- Introduce itself clearly.
+- Explain the purpose of the survey.
+- Ask questions naturally.
+- Listen for the complete answer.
+- Ask appropriate follow-ups.
+- Handle silence and unclear responses.
+- Allow the respondent to decline.
+- End the call politely.
+
+The spoken transcript must preserve the selected language and actual conversation.
+
+### Step 4: Results
+
+Store:
+- Survey ID
+- Contact ID
+- Call status
+- Start and end timestamps
+- Call duration
+- Transcript
+- Individual question answers
+- Follow-up questions
+- Completion status
+- Failure reason, if applicable
+
+Provide survey analytics with response counts, completion rates, question-level summaries, and charts.
+
+## 6. POLITICAL CAMPAIGN MODULE
+
+Create an independent political outreach and campaign-management workflow.
+
+This module must have its own voice profile selection, recording confirmation, script editor, contact list, test call, campaign controls, call history, and analytics.
+
+### Step 1: Campaign details
+
+Include:
+- Campaign name
+- Candidate name
+- Party name
+- Constituency or locality
+- Campaign language
+- Campaign dates
+- Approved campaign script
+- Selected voice profile
+- Contact list
+- Test call
+
+Allow users to enter their own campaign script manually and edit it before use.
+
+Do not automatically generate or optimize targeted political persuasion. Preserve user-authored campaign content and provide neutral formatting, pronunciation assistance, and translation only where appropriate.
+
+Clearly identify the caller and the campaign. Do not impersonate a government official, election authority, or another person.
+
+### Step 2: Recording and voice profile
+
+Reuse the shared 30–60 second recording workflow.
+
+Allow the user to:
+- Record a new authorized voice.
+- Play the recording.
+- Re-record if dissatisfied.
+- Confirm the recording.
+- Create a voice profile.
+- Select an existing authorized saved profile.
+
+Do not repeat recording if the user selects a valid saved voice profile.
+
+### Step 3: Script editor
+
+After selecting a voice profile, show an editable campaign script.
+
+Allow the user to enter details such as:
+- Candidate name
+- Party name
+- Constituency
+- Campaign information
+- Approved announcement
+- Closing message
+
+Provide a live preview of the exact text that will be spoken.
+
+Do not silently change the approved script after confirmation.
+
+### Step 4: Interactive response collection
+
+Support configurable keypad responses using DTMF.
+
+For example, the user may configure:
+- Press 1 for response option A.
+- Press 2 for response option B.
+
+Display the options in English in the campaign configuration UI. The spoken instructions must use the selected conversation language.
+
+The system must:
+- Play the closing prompt.
+- Wait for one valid keypad input.
+- Save the actual digit received.
+- Save the associated response option.
+- Stop listening after a valid response.
+- End the call automatically.
+- Handle invalid input and timeout safely.
+
+Never record a response as positive or negative unless that interpretation is supported by the configured response mapping.
+
+Political outreach must comply with applicable election, telecom, consent, and do-not-call requirements. Use authorized contacts, respect opt-outs, and do not bypass restrictions on automated political calls.
+
+### Step 5: Campaign controls
+
+Provide:
+- Save Draft
+- Test Call
+- Schedule Campaign
+- Start Campaign
+- Pause Campaign
+- Resume Campaign
+- Stop Campaign
+- View Call History
+
+Do not initiate a real outbound call during preview or configuration.
+
+Before launching a campaign, display a confirmation screen showing the selected contacts, voice profile, approved script, estimated call volume, and relevant consent/compliance status.
+
+Prevent duplicate calls to the same contact within the same campaign unless explicitly authorized.
+
+## 7. CONTACT MANAGEMENT — REQUIRED FOR ALL MODULES
+
+Contact management is a core feature, not an optional enhancement.
+
+Implement a reusable contact-management system accessible within each event.
+
+### Supported contact input methods
+
+1. Manual entry
+2. CSV upload
+3. Excel upload (`.xlsx` and `.xls`)
+4. PDF upload
+
+Manual contact entry should support:
+- Name
+- Phone number
+- Optional email
+- Optional locality
+- Optional custom fields
+- Consent status
+- Notes
+
+Provide an Add Contact button and allow users to edit and delete individual contacts.
+
+### Bulk upload
+
+Support uploading contact files.
+
+CSV and Excel:
+- Read the actual file contents.
+- Detect column headers.
+- Allow the user to map name and phone columns.
+- Validate phone numbers.
+- Preview the records before importing.
+- Identify duplicate numbers.
+- Display invalid rows and import errors.
+- Allow the user to confirm the import.
+
+PDF:
+- Extract text from selectable-text PDFs.
+- Use OCR when necessary and supported.
+- Detect likely names and phone numbers.
+- Show extracted records in a review table.
+- Require the user to review and confirm the extracted contacts.
+- Do not automatically call numbers extracted from an unreviewed PDF.
+
+Support large contact lists using pagination and background processing where appropriate.
+
+### Contact storage
+
+Each contact must be associated with the correct user, event, and campaign.
+
+Store fields such as:
+- Contact ID
+- User ID
+- Event ID
+- Campaign ID, when applicable
+- Name
+- Normalized phone number
+- Original imported phone number
+- Custom fields
+- Consent status and source
+- Opt-out status
+- Import source
+- Creation timestamp
+
+Prevent cross-event data leakage.
+
+Do not assume that uploading a contact list automatically grants permission to call those contacts.
+
+### Contact list UI
+
+Include:
+- Search
+- Filters
+- Pagination
+- Total contacts
+- Valid contacts
+- Invalid contacts
+- Duplicate contacts
+- Import history
+- Export contacts
+- Select contacts
+- Remove selected contacts
+
+## 8. OUTBOUND CALL QUEUE
+
+Implement a backend-managed queue for authorized outbound calls.
+
+When a user confirms a campaign, the system must process eligible contacts one by one or with a configurable concurrency limit supported by the telephony provider.
+
+The queue must support:
+- Pending
+- In Progress
+- Completed
+- Failed
+- No Answer
+- Busy
+- Cancelled
+- Skipped
+- Opted Out
+
+Requirements:
+- Process only eligible contacts.
+- Check consent and opt-out status before each call.
+- Respect provider rate limits.
+- Apply configurable retry rules.
+- Avoid duplicate active calls.
+- Track provider call IDs.
+- Save actual call status from provider webhooks.
+- Pause and resume safely.
+- Stop queued calls when a campaign is stopped.
+- Handle server restarts without losing queue state.
+- Never mark a call successful merely because an API request was sent.
+- Display errors when provider credentials, balance, numbers, or permissions are invalid.
+
+Use the existing telephony provider integration wherever possible. Keep provider-specific logic behind a reusable backend service.
+
+## 9. MARRIAGE EVENT MODULE
+
+Create an independent marriage invitation and event-announcement workflow.
+
+### Step 1: Event details
+
+Include fields for:
+- Bride's name
+- Groom's name
+- Wedding date
+- Wedding time
+- Reception date
+- Reception time
+- Venue name
+- Complete venue address
+- Optional map link
+- Family names
+- Custom invitation message
+- Language
+- Selected voice profile
+
+Make optional fields optional. Validate required information before generating the invitation.
+
+### Step 2: Voice
+
+Provide the same voice recording, playback, re-recording, confirmation, voice profile creation, and saved-profile selection functionality.
+
+Do not require a new recording if a valid authorized profile is already available.
+
+### Step 3: Invitation script
+
+Generate a natural invitation using the information supplied by the user.
+
+Example structure:
+- Appropriate greeting
+- Bride and groom names
+- Wedding date and time
+- Reception details
+- Venue and address
+- Invitation message
+- Polite closing
+
+Support Telugu, Hindi, and English.
+
+Display the generated script in an editable text area.
+
+Allow the user to change names, dates, times, pronunciation, and wording before testing or launching the campaign.
+
+Do not invent missing event information.
+
+### Step 4: Contacts and calls
+
+Use the same shared contact-management component.
+
+Support manual entry, CSV, Excel, and PDF imports.
+
+Allow the user to select eligible contacts, test the invitation, schedule calls, start the campaign, pause, resume, and stop.
+
+Save each call's result and display invitation delivery and call-completion statistics separately.
+
+## 10. CUSTOM EVENT MODULE
+
+Build a flexible event builder.
+
+Users must be able to create their own event without depending on Public Survey, Political Campaign, or Marriage Event.
+
+Allow configuration of:
+- Event name
+- Event description
+- Language
+- Greeting
+- Custom script
+- Custom voice profile
+- Optional questions
+- Optional follow-up questions
+- Optional keypad responses
+- Closing message
+- Contact list
+- Call schedule
+- Campaign settings
+
+Provide a simple form builder to add, edit, delete, and reorder questions.
+
+Allow the user to choose whether the event is:
+- An announcement
+- A question-and-answer call
+- A survey
+- A custom invitation
+
+Show only relevant configuration fields for the selected type.
+
+Reuse the shared recording, voice profile, contact management, queue, and analytics components.
+
+Do not require the user to write code to create a custom event.
+
+## 11. ANALYTICS DASHBOARD
+
+Provide event-specific analytics for all four modules.
+
+Show:
+- Total contacts
+- Eligible contacts
+- Calls attempted
+- Calls completed
+- Calls failed
+- No-answer calls
+- Busy calls
+- Pending calls
+- Average call duration
+- Completion rate
+- Response distribution
+- Opt-outs
+
+For Public Survey:
+- Question-level response counts
+- Survey completion rate
+- Answer summaries
+- Follow-up statistics
+
+For Political Campaign:
+- Actual keypad responses
+- Counts for each configured response
+- Response percentages
+- Call outcome distribution
+
+For Marriage Event:
+- Invitations attempted
+- Completed calls
+- Failed calls
+- Pending invitations
+
+For Custom Event:
+- Results relevant to the configured event type.
+
+Calculate percentages from actual stored data.
+
+For example:
+
+Response percentage = (responses in a category / all valid recorded responses) × 100.
+
+Clearly label the denominator used. Exclude unanswered or invalid responses from response-category percentages unless the UI explicitly reports them separately.
+
+Use real database values. Do not show fabricated analytics or random chart values.
+
+Provide date filters, campaign filters, and export options.
+
+## 12. EXPORT AND REPORTING
+
+Allow authorized users to export:
+- Contacts as CSV or Excel
+- Call history as CSV or Excel
+- Survey responses as CSV or Excel
+- Analytics reports
+- Available transcript records
+
+Provide PDF reports for summaries and supported tabular data.
+
+Ensure exported files contain the correct event's data only.
+
+Handle large exports on the backend when necessary.
+
+Do not expose API keys, internal provider credentials, or unrelated personal data in exported files.
+
+## 13. DATABASE AND PERSISTENCE
+
+Use the database infrastructure already present in the repository if it is suitable.
+
+If there is no suitable persistent database, implement a proper persistent storage layer appropriate for the Google AI Studio environment. Do not treat React component state or browser local storage as the authoritative campaign database.
+
+Design related records for:
+- Users
+- Events
+- Campaigns
+- Voice profiles
+- Contacts
+- Contact imports
+- Survey questions
+- Survey answers
+- Generated scripts
+- Call jobs
+- Call attempts
+- Call responses
+- Call transcripts
+- Analytics or report records
+- Consent records
+- Opt-outs
+
+Use stable IDs and timestamps.
+
+Apply user-level authorization and event-level access controls.
+
+Use database transactions or equivalent safeguards where appropriate to prevent duplicate jobs and inconsistent campaign states.
+
+If database setup requires credentials or external account configuration, implement the integration and clearly identify the required setup steps.
+
+Do not invent database credentials.
+
+## 14. VOICE AND TELEPHONY PROVIDER INTEGRATION
+
+Inspect the current repository before changing providers.
+
+Preserve existing working Vapi, ElevenLabs, Sarvam, or other voice integrations that are actually present in the codebase.
+
+Use the existing telephony integration wherever possible.
+
+Implement a clean provider service layer so voice generation, voice profiles, call creation, DTMF collection, and call status processing can be maintained independently.
+
+Do not remove an existing provider merely because a different provider is easier to implement.
+
+Keep the following operations separate:
+- Audio recording
+- Voice profile creation
+- Speech generation
+- Speech playback
+- Speech recognition
+- Outbound calling
+- DTMF collection
+- Call status processing
+
+Use the actual capabilities of the configured providers.
+
+If a provider supports only some of these features, display a clear limitation instead of pretending the complete workflow is operational.
+
+Keep all provider API keys and secrets in server-side environment variables or the platform's secure Secrets configuration.
+
+Never expose secret keys in frontend code, browser requests, logs, or generated exports.
+
+If a secret is missing, display a configuration error and document the exact required secret name.
+
+## 15. UI/UX REQUIREMENTS
+
+Create a polished, premium SaaS interface.
+
+Use:
+- Professional typography
+- Consistent spacing
+- Clear forms
+- Responsive layouts
+- Accessible controls
+- Useful loading indicators
+- Empty states
+- Error states
+- Success notifications
+- Confirmation dialogs
+- Searchable data tables
+- Clear progress indicators
+
+The four event cards must be the primary dashboard focus.
+
+Each event should have a clear workflow, for example:
+
+Overview → Event Setup → Voice → Contacts → Test → Campaign → Analytics
+
+Adapt the steps to each event type.
+
+Do not display every configuration field on one enormous page.
+
+Use separate steps or tabs while preserving unsaved form data.
+
+Show the selected event name in the page header and provide a clear route back to the dashboard.
+
+Keep the application UI in English. Only the actual spoken conversation and its matching transcript should follow the selected language.
+
+Do not remove working voice-agent behavior simply to change the interface.
+
+## 16. TESTING AND RELIABILITY
+
+After implementing the changes:
+
+1. Install or verify the required dependencies.
+2. Run the available build and type-check commands.
+3. Fix compilation errors.
+4. Fix broken imports and routes.
+5. Check for missing backend handlers.
+6. Verify that the dashboard opens.
+7. Verify that all four event cards open their correct workflows.
+8. Verify event-level data separation.
+9. Verify microphone permissions and recording duration validation.
+10. Verify recording playback and re-recording.
+11. Verify that saved voice profiles can be selected.
+12. Verify the missing-provider-credential error path.
+13. Verify manual contact entry.
+14. Verify CSV and Excel import validation.
+15. Verify PDF contact extraction and review.
+16. Verify campaign queue creation and cancellation.
+17. Verify webhook-based call status updates.
+18. Verify DTMF response handling where supported.
+19. Verify that analytics use actual stored data.
+20. Verify export functionality.
+21. Fix any additional issues found.
+
+Use mocks only for automated tests or an explicitly labeled demo mode. Never present simulated calls as real calls.
+
+Do not initiate real calls during automated tests unless an explicitly configured test environment authorizes them.
+
+If live integrations cannot be tested because credentials are unavailable, test the code paths that can be tested and list the remaining live verification steps honestly.
+
+## 17. IMPLEMENTATION RULES
+
+- Work directly on the imported project.
+- Inspect before modifying.
+- Preserve working functionality.
+- Reuse existing components and services.
+- Avoid unnecessary rewrites.
+- Do not replace real backend functionality with placeholder UI.
+- Do not create buttons that have no working action.
+- Do not silently swallow errors.
+- Do not fabricate successful provider responses.
+- Do not use hardcoded analytics as real results.
+- Do not hardcode credentials.
+- Do not lose existing user data or configuration.
+- Do not add unnecessary paid services without explaining the dependency.
+- Do not ask me to manually replace code in VS Code.
+- If a migration is required, implement a safe, documented migration.
+- Keep all new functionality integrated with the existing application.
+
+## 18. FINAL ACCEPTANCE CRITERIA
+
+The upgrade is complete only when:
+
+A. The dashboard shows all four independent event modules.
+
+B. The UI is English, while the spoken conversation and matching transcript use the selected language.
+
+C. Voice recording supports the 30–60 second workflow, playback, re-recording, confirmation, and actual provider-backed profile creation.
+
+D. Authorized saved voice profiles can be reused across events without unnecessary re-recording.
+
+E. Public Survey supports configurable questions, dynamic relevant follow-ups, and saved responses.
+
+F. Political Campaign supports user-authored scripts, authorized contacts, appropriate compliance checks, configurable keypad responses, and campaign analytics.
+
+G. Marriage Event supports all requested wedding details, editable invitations, contacts, and outbound campaign management.
+
+H. Custom Event supports configurable announcements, questions, scripts, and responses.
+
+I. All event types support manual contact entry and appropriate CSV, Excel, and PDF imports.
+
+J. The outbound queue processes eligible contacts safely and tracks actual provider call results.
+
+K. Analytics and percentages are calculated from actual saved records.
+
+L. Exported reports contain the correct event's data.
+
+M. Existing integrations and working functionality are preserved.
+
+N. The app builds successfully, and any remaining external setup requirements are documented.
+
+Begin by inspecting the repository, then implement the complete upgrade. Do not stop at a proposal, a design mockup, or a list of recommendations. Build the actual application and verify every part that can be tested in the available environment.
+
+At completion, provide a concise summary of the changes, tests performed, any remaining integration limitations, and the exact configuration steps required for live voice cloning and telephony.
