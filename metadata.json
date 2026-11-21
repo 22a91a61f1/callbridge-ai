@@ -1,0 +1,10 @@
+{
+  "name": "CallBridge AI — Enterprise Conversational Voice Agent Platform",
+  "description": "Conversational AI voice platform and model engine supporting Public Survey, Political Campaign, and Marriage Event in authentic Telugu, Hindi, and English.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

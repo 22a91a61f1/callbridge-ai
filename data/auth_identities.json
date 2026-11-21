@@ -1,0 +1,16 @@
+{
+  "identitiesByUid": {
+    "BYXGGzMnq8dRFlRH9EW1UARiqp13": {
+      "uid": "BYXGGzMnq8dRFlRH9EW1UARiqp13",
+      "email": "rishithagogula489@gmail.com",
+      "fullName": "Rishitha",
+      "role": "customer",
+      "tenantId": "cust_BYXGGzMnq8dRFl",
+      "provider": "password",
+      "emailVerified": true,
+      "createdAt": "2026-11-20T13:41:40.299Z",
+      "updatedAt": "2026-11-20T16:35:28.517Z",
+      "lastLoginAt": "2026-11-20T16:35:28.517Z"
+    }
+  }
+}
